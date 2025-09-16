@@ -63,6 +63,7 @@ func _physics_process(delta):
 
 func spawn_box():
 	var box_instance = box_scene.instantiate()
+	box_instance.scale.y = 0
 	box_instance.global_position = self.global_position + Vector2(0, SPAWN_OFFSET_Y)
 	get_parent().add_child(box_instance)
 	#position.y -= 16.0

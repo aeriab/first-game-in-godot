@@ -24,6 +24,8 @@ var is_activated: bool = false
 
 var trying_to_solidify: bool = false
 
+var is_gone: bool = true
+
 func _ready():
 	scale = Vector2(1, 0.001)
 	var tween = create_tween()
@@ -32,17 +34,24 @@ func _ready():
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("spawn_box"):
-		if is_solid:
-			is_solid = false
-			target_position = player.global_position
-		else:
-			block_spot_check_valid()
+		
+		if is_solid && is_activated:
+			is_gone = true
+			var tween = create_tween()
+			tween.tween_property(material, "shader_parameter/sensitivity", 1.0, 0.5)
+		else: # everything that is not dissolving:
+			is_gone = false
+			if is_solid:
+				is_solid = false
+				target_position = player.global_position
+			else:
+				block_spot_check_valid()
 	
 	if !is_solid && is_first_spring:
 		is_first_spring = false
 		spring_to_target()
 	
-	if is_solid:
+	if is_solid && !is_gone:
 		collision_shape_2d.disabled = false
 		is_first_spring = true
 	else:
