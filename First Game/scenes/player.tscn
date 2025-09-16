@@ -168,8 +168,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bvcm0"]
-radius = 5.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(15.9, 18)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
@@ -177,11 +177,12 @@ collision_layer = 2
 script = ExtResource("1_ofpvf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -12)
+position = Vector2(0, -18)
+scale = Vector2(1.50095, 1.50095)
 sprite_frames = SubResource("SpriteFrames_81gkq")
 animation = &"jump"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_bvcm0")
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_g2els")

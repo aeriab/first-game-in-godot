@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwqahxujghkyq"]
+
+[ext_resource type="Texture2D" uid="uid://d0q2g65ahgok" path="res://assets/sprites/world_tileset.png" id="1_qeosk"]
+[ext_resource type="Script" uid="uid://cgyvqrk7pdx1n" path="res://spawnable_box.gd" id="1_x7kty"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x7kty"]
+size = Vector2(16, 16)
+
+[node name="SpawnableBox" type="StaticBody2D"]
+scale = Vector2(1, 1e-05)
+script = ExtResource("1_x7kty")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_x7kty")
+
+[node name="SolidBlock" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_qeosk")
+region_enabled = true
+region_rect = Rect2(32, 16, 16, 16)
+
+[node name="GhostBlock" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.52549)
+position = Vector2(0, -8)
+texture = ExtResource("1_qeosk")
+region_enabled = true
+region_rect = Rect2(48, 0, 16, 16)
