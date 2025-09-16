@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dqnaqj8yb6hwd"]
+[gd_scene load_steps=27 format=3 uid="uid://dqnaqj8yb6hwd"]
 
 [ext_resource type="Script" uid="uid://cg0l2joj02yt4" path="res://scripts/player.gd" id="1_ofpvf"]
 [ext_resource type="Texture2D" uid="uid://b8cmjj8vq3r8d" path="res://assets/sprites/knight.png" id="1_p3dy5"]
@@ -168,6 +168,10 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 8.0
+height = 18.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(15.9, 18)
 
@@ -183,13 +187,15 @@ animation = &"jump"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -9)
-shape = SubResource("RectangleShape2D_g2els")
+shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_g2els")
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.08
+one_shot = true
