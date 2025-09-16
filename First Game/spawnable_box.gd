@@ -6,6 +6,8 @@ extends StaticBody2D
 
 @onready var solid_block = $SolidBlock
 @onready var ghost_block = $GhostBlock
+@onready var activated_ghost_block = $ActivatedGhostBlock
+@onready var activated_solid_block = $ActivatedSolidBlock
 
 @onready var area_2d = $Area2D
 
@@ -18,6 +20,7 @@ var is_solid: bool = true
 
 var is_first_spring: bool = true
 
+var is_activated: bool = false
 
 var trying_to_solidify: bool = false
 
@@ -44,8 +47,10 @@ func _physics_process(delta):
 		is_first_spring = true
 	else:
 		collision_shape_2d.disabled = true
-	solid_block.visible = is_solid
-	ghost_block.visible = !is_solid
+	solid_block.visible = is_solid && !is_activated
+	ghost_block.visible = !is_solid && !is_activated
+	activated_ghost_block.visible = !is_solid && is_activated
+	activated_solid_block.visible = is_solid && is_activated
 
 var active_tween: Tween
 func spring_to_target():
@@ -66,6 +71,7 @@ func spring_to_target():
 
 
 func block_spot_check_valid(): # wait until there are no overlapping area2d's, then kill tween and set to solid etc.
+	is_activated = true
 	while area_2d.get_overlapping_bodies().size() > 0:
 		await get_tree().process_frame
 	active_tween.kill()

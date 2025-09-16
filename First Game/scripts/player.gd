@@ -16,7 +16,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var coyote_timer = $CoyoteTimer
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("spawn_box") && can_spawn_box:
+	if Input.is_action_just_pressed("spawn_box") && can_spawn_box && custom_on_ground():
 		can_spawn_box = false
 		spawn_box()
 	
@@ -27,7 +27,6 @@ func _physics_process(delta):
 	if !custom_on_ground() && was_on_floor:
 		coyote_timer.start()
 	
-	print(coyote_timer.time_left)
 	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and (custom_on_ground() || !coyote_timer.is_stopped()):
@@ -63,11 +62,10 @@ func _physics_process(delta):
 	was_on_floor = custom_on_ground()
 
 func spawn_box():
-	if custom_on_ground():
-		var box_instance = box_scene.instantiate()
-		box_instance.global_position = self.global_position + Vector2(0, SPAWN_OFFSET_Y)
-		get_parent().add_child(box_instance)
-		#position.y -= 16.0
+	var box_instance = box_scene.instantiate()
+	box_instance.global_position = self.global_position + Vector2(0, SPAWN_OFFSET_Y)
+	get_parent().add_child(box_instance)
+	#position.y -= 16.0
 
 func custom_on_ground() -> bool:
 	return (area_2d.get_overlapping_bodies().size() > 1) || is_on_floor()

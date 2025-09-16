@@ -10,6 +10,7 @@ size = Vector2(16, 16)
 size = Vector2(16, 16)
 
 [node name="SpawnableBox" type="StaticBody2D"]
+scale = Vector2(1, 1e-05)
 script = ExtResource("1_x7kty")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -31,7 +32,23 @@ texture = ExtResource("1_qeosk")
 region_enabled = true
 region_rect = Rect2(48, 0, 16, 16)
 
+[node name="ActivatedGhostBlock" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.52549)
+position = Vector2(0, -8)
+texture = ExtResource("1_qeosk")
+region_enabled = true
+region_rect = Rect2(80, 16, 16, 16)
+
+[node name="ActivatedSolidBlock" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("1_qeosk")
+region_enabled = true
+region_rect = Rect2(64, 16, 16, 16)
+
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -8)
