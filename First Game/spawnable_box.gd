@@ -24,13 +24,16 @@ var is_activated: bool = false
 
 var trying_to_solidify: bool = false
 
-var is_gone: bool = true
+var is_gone: bool = false
 
 func _ready():
 	scale = Vector2(1, 0.001)
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ONE, grow_duration)
 	
+
+func allow_next_box():
+	player.can_spawn_box = true
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("spawn_box"):
@@ -39,6 +42,8 @@ func _physics_process(delta):
 			is_gone = true
 			var tween = create_tween()
 			tween.tween_property(material, "shader_parameter/sensitivity", 1.0, 0.5)
+			tween.tween_callback(queue_free)
+			tween.tween_callback(allow_next_box)
 		else: # everything that is not dissolving:
 			is_gone = false
 			if is_solid:

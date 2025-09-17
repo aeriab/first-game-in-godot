@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPAWN_OFFSET_Y = 0.0
 
 const SPEED = 80.0
-const JUMP_VELOCITY = -190.0
+const JUMP_VELOCITY = -300.0
 var was_on_floor: bool = false
 
 var can_spawn_box: bool = true
@@ -19,6 +19,12 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("spawn_box") && can_spawn_box && custom_on_ground():
 		can_spawn_box = false
 		spawn_box()
+	if Input.is_action_pressed("down"):
+		set_collision_layer_value(2, false)
+		set_collision_mask_value(2, false)
+	else:
+		set_collision_layer_value(2, true)
+		set_collision_mask_value(2, true)
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -33,7 +39,6 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 		coyote_timer.stop()
 		was_on_floor = false
-
 	# Get the input direction: -1, 0, 1
 	var direction = Input.get_axis("move_left", "move_right")
 	

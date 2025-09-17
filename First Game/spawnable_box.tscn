@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cgyvqrk7pdx1n" path="res://spawnable_box.gd" id="1_x7kty"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ffc1"]
+resource_local_to_scene = true
 shader = ExtResource("1_teldj")
 shader_parameter/sensitivity = 0.0
 
